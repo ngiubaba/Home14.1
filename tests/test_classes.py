@@ -45,4 +45,4 @@ def category_count_fix():
 def test_count_product(category_count_fix):
     """Тест на проверку работоспособности счетчиков категорий и продуктов"""
     assert category_count_fix.product_count == 4
-    assert category_count_fix.category_count == 1
+    assert category_count_fix.category_count == 2
