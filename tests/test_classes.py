@@ -22,7 +22,7 @@ def test_product_dict():
         "name": "Samsung",
         "description": "Work it!",
         "price": 105_000,
-        "quantity": 3
+        "quantity": 3,
     }
     product_new = Product.new_product(product_new)
     assert product_new.name == "Samsung"
@@ -36,11 +36,13 @@ def test_new_price_product(product_name):
     product_name.price = new_price
     assert product_name.price == 100
 
+
 def test_new__fail_price_product(product_name):
     """Тест когда цена меньше 0"""
     new_price = -100
     product_name.price = new_price
     assert product_name.price == 120000
+
 
 @pytest.fixture
 def category_name(product_name):
@@ -73,25 +75,23 @@ def test_count_product(category_count_fix):
     assert category_count_fix.product_count == 4
     assert category_count_fix.category_count == 2
 
+
 def test_add_product():
     """Тест на добавление продукта в категорию"""
     product1 = Product("Iphone", "Nice phone", 120_000, 1)
     category = Category(
-        "Telefone",
-        "Средство для связи на дальние расстояния",
-        [product1]
+        "Telefone", "Средство для связи на дальние расстояния", [product1]
     )
     product2 = Product("Samsung", "Good phone", 100000, 2)
     category.add_product(product2)
     assert "Iphone" in category.products
     assert "Samsung" in category.products
 
+
 def test_text_product():
     """Тест на вывод продукта в категории в заданной строке"""
     product1 = Product("Iphone", "Nice phone", 120_000, 1)
     category = Category(
-        "Telefone",
-        "Средство для связи на дальние расстояния",
-        [product1]
+        "Telefone", "Средство для связи на дальние расстояния", [product1]
     )
     assert category.products == "Iphone, 120000 руб. Остаток: 1 шт."
