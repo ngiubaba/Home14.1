@@ -44,6 +44,7 @@ def test_product_dict():
 
 
 def test_new_price_product(product_name):
+    """Тест проверка установки новой цены товара"""
     new_price = 100
     product_name.price = new_price
     assert product_name.price == 100
