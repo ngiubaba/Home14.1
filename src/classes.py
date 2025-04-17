@@ -33,7 +33,6 @@ class Product:
         else:
             self.__price = price_new
 
-
     def __add__(self, other):
         return (self.price * self.quantity) + (other.price * other.quantity)
 
@@ -61,7 +60,6 @@ class Category:
     @property
     def products(self):
         return "\n".join(str(product) for product in self.__products)
-
 
     def __str__(self):
         all_quantity = sum(product.quantity for product in self.__products)

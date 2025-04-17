@@ -9,13 +9,16 @@ def reset_category_counters():
     Category.product_count = 0
     Category.category_count = 0
 
+
 @pytest.fixture
 def product_name():
     return Product("Iphone", "Nice phone", 120_000, 1)
 
+
 def test_str_product(product_name):
     """Тест на вывод продукта в виде строки"""
     assert str(product_name) == "Iphone, 120000 руб. Остаток: 1 шт."
+
 
 def test_work_product(product_name):
     """Тест на нормальную работу класса"""
@@ -78,9 +81,11 @@ def category_count_fix():
         [product1, product2, product3],
     )
 
+
 def test_category_str(category_count_fix):
     """Тест вывода информации о категории в str"""
     assert str(category_count_fix) == "Telephone, количество продуктов: 3 шт."
+
 
 def test_count_product(category_count_fix):
     """Тест на проверку работоспособности счетчиков категорий и продуктов"""
@@ -108,10 +113,9 @@ def test_text_product():
     )
     assert category.products == "Iphone, 120000 руб. Остаток: 1 шт."
 
+
 def test_sum_product():
     """Тест на суммирование стоимости и количества продуктов"""
     product1 = Product("Iphone", "Nice phone", 120_000, 1)
     product2 = Product("Samsung", "Good phone", 100000, 2)
     assert (product1 + product2) == 320000
-
-
