@@ -3,9 +3,21 @@ import pytest
 from src.classes import Category, Product
 
 
+@pytest.fixture(autouse=True)
+def reset_category_counters():
+    """Обнуление параметров перед каждым тестом"""
+    Category.product_count = 0
+    Category.category_count = 0
+
+
 @pytest.fixture
 def product_name():
     return Product("Iphone", "Nice phone", 120_000, 1)
+
+
+def test_str_product(product_name):
+    """Тест на вывод продукта в виде строки"""
+    assert str(product_name) == "Iphone, 120000 руб. Остаток: 1 шт."
 
 
 def test_work_product(product_name):
@@ -32,6 +44,7 @@ def test_product_dict():
 
 
 def test_new_price_product(product_name):
+    """Тест проверка установки новой цены товара"""
     new_price = 100
     product_name.price = new_price
     assert product_name.price == 100
@@ -64,23 +77,28 @@ def category_count_fix():
     product2 = Product("Samsung", "Good phone", 100_000, 1)
     product3 = Product("Xiaomi", "Cheap phone", 50_000, 1)
     return Category(
-        "Telefone",
+        "Telephone",
         "Средство для связи на дальние расстояния",
         [product1, product2, product3],
     )
 
 
+def test_category_str(category_count_fix):
+    """Тест вывода информации о категории в str"""
+    assert str(category_count_fix) == "Telephone, количество продуктов: 3 шт."
+
+
 def test_count_product(category_count_fix):
     """Тест на проверку работоспособности счетчиков категорий и продуктов"""
-    assert category_count_fix.product_count == 4
-    assert category_count_fix.category_count == 2
+    assert category_count_fix.product_count == 3
+    assert category_count_fix.category_count == 1
 
 
 def test_add_product():
     """Тест на добавление продукта в категорию"""
     product1 = Product("Iphone", "Nice phone", 120_000, 1)
     category = Category(
-        "Telefone", "Средство для связи на дальние расстояния", [product1]
+        "Telephone", "Средство для связи на дальние расстояния", [product1]
     )
     product2 = Product("Samsung", "Good phone", 100000, 2)
     category.add_product(product2)
@@ -92,6 +110,13 @@ def test_text_product():
     """Тест на вывод продукта в категории в заданной строке"""
     product1 = Product("Iphone", "Nice phone", 120_000, 1)
     category = Category(
-        "Telefone", "Средство для связи на дальние расстояния", [product1]
+        "Telephone", "Средство для связи на дальние расстояния", [product1]
     )
     assert category.products == "Iphone, 120000 руб. Остаток: 1 шт."
+
+
+def test_sum_product():
+    """Тест на суммирование стоимости и количества продуктов"""
+    product1 = Product("Iphone", "Nice phone", 120_000, 1)
+    product2 = Product("Samsung", "Good phone", 100000, 2)
+    assert (product1 + product2) == 320000
