@@ -1,6 +1,6 @@
 import pytest
 
-from src.classes import Category, Product, Smartphone, LawnGrass
+from src.classes import Category, LawnGrass, Product, Smartphone
 
 
 @pytest.fixture(autouse=True)
@@ -130,6 +130,7 @@ def test_add_product_type_error():
     with pytest.raises(TypeError):
         _ = smartphone + grass
 
+
 def test_add_invalid_product_type():
     """Тест на ошибку при добавлении не продукта в категорию"""
     product1 = Product("iPhone", "Nice", 100000, 1)
@@ -139,6 +140,7 @@ def test_add_invalid_product_type():
 
     with pytest.raises(TypeError):
         category.add_product("not_a_product")
+
 
 def tests_product_smartphone():
     product1 = Smartphone("Iphone", "Nice phone", 120_000, 1, 25, "15Pro", 128, "Black")
