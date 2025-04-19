@@ -1,6 +1,6 @@
 import pytest
 
-from src.classes import Category, Product
+from src.classes import Category, LawnGrass, Product, Smartphone
 
 
 @pytest.fixture(autouse=True)
@@ -120,3 +120,35 @@ def test_sum_product():
     product1 = Product("Iphone", "Nice phone", 120_000, 1)
     product2 = Product("Samsung", "Good phone", 100000, 2)
     assert (product1 + product2) == 320000
+
+
+def test_add_product_type_error():
+    """Тест на ошибку при сложении товаров разных типов"""
+    smartphone = Smartphone("iPhone", "Smart", 100000, 1, 95.5, "15", 256, "Black")
+    grass = LawnGrass("Газон", "Трава", 500, 3, "Россия", "7 дней", "Зеленый")
+
+    with pytest.raises(TypeError):
+        _ = smartphone + grass
+
+
+def test_add_invalid_product_type():
+    """Тест на ошибку при добавлении не продукта в категорию"""
+    product1 = Product("iPhone", "Nice", 100000, 1)
+    category = Category(
+        "Telephone", "Средство для связи на дальние расстояния", [product1]
+    )
+
+    with pytest.raises(TypeError):
+        category.add_product("not_a_product")
+
+
+def tests_product_smartphone():
+    product1 = Smartphone("Iphone", "Nice phone", 120_000, 1, 25, "15Pro", 128, "Black")
+    assert product1.name == "Iphone"
+    assert product1.description == "Nice phone"
+    assert product1.price == 120000.0
+    assert product1.quantity == 1
+    assert product1.efficiency == 25
+    assert product1.model == "15Pro"
+    assert product1.memory == 128
+    assert product1.color == "Black"
