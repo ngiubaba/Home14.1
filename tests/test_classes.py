@@ -155,5 +155,11 @@ def tests_product_smartphone():
 
 
 def test_print_class():
+    """Тест на вывод тладочной информации в консоль"""
     product1 = Smartphone("Iphone", "Nice phone", 120_000, 1, 25, "15Pro", 128, "Black")
     assert repr(product1) == "Smartphone(Iphone, Nice phone, 120000, 1)"
+
+def test_print_class():
+    """Тест что класс продукт наследуются от абстрактного класса BaseProduct"""
+    product1 = Smartphone("Iphone", "Nice phone", 120_000, 1, 25, "15Pro", 128, "Black")
+    assert "BaseProduct" in str(Smartphone.__mro__)

@@ -12,19 +12,19 @@ class MixinPrintClass:
     def __repr__(self):
         return f"{self.__class__.__name__}({self.name}, {self.description}, {self.price}, {self.quantity})"
 
+    def __init__(self):
+        print(self.__repr__())
+
 
 class Product(BaseProduct, MixinPrintClass):
-    name: str
-    description: str
-    __price: float
-    quantity: int
+    __slots__ = ["name", "description", "__price", "quantity"]
 
     def __init__(self, name, description, price, quantity):
         self.name = name
         self.description = description
         self.__price = price
         self.quantity = quantity
-        super().__repr__()
+        super().__init__()
 
     def __str__(self):
         return f"{self.name}, {self.price} руб. Остаток: {self.quantity} шт."
@@ -57,6 +57,7 @@ class Product(BaseProduct, MixinPrintClass):
 
 
 class Smartphone(Product):
+    __slots__ = ["efficiency", "model", "memory", "color"]
 
     def __init__(
         self, name, description, price, quantity, efficiency, model, memory, color
@@ -69,7 +70,7 @@ class Smartphone(Product):
 
 
 class LawnGrass(Product):
-
+    __slots__ = ["country", "germination_period", "color"]
     def __init__(
         self, name, description, price, quantity, country, germination_period, color
     ):
