@@ -1,4 +1,5 @@
-from  abc import ABC, abstractmethod
+from abc import ABC, abstractmethod
+
 
 class BaseProduct(ABC):
     __slots__ = ["name", "description", "__price", "quantity"]
@@ -7,6 +8,7 @@ class BaseProduct(ABC):
     @abstractmethod
     def new_product(cls, product_dict):
         pass
+
 
 class MixinPrintClass:
     def __repr__(self):
@@ -70,7 +72,9 @@ class Smartphone(Product):
 
 
 class LawnGrass(Product):
+
     __slots__ = ["country", "germination_period", "color"]
+
     def __init__(
         self, name, description, price, quantity, country, germination_period, color
     ):
