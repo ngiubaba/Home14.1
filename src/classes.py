@@ -10,7 +10,7 @@ class BaseProduct(ABC):
 
 class MixinPrintClass:
     def __repr__(self):
-        print(f"{self.__class__.__name__}({self.name}, {self.description}, {self.price}, {self.quantity})")
+        return f"{self.__class__.__name__}({self.name}, {self.description}, {self.price}, {self.quantity})"
 
 
 class Product(BaseProduct, MixinPrintClass):
