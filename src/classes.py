@@ -1,4 +1,19 @@
-class Product:
+from  abc import ABC, abstractmethod
+
+class BaseProduct(ABC):
+    __slots__ = ["name", "description", "__price", "quantity"]
+
+    @classmethod
+    @abstractmethod
+    def new_product(cls, product_dict):
+        pass
+
+class MixinPrintClass:
+    def __repr__(self):
+        print(f"{self.__class__.__name__}({self.name}, {self.description}, {self.price}, {self.quantity})")
+
+
+class Product(BaseProduct, MixinPrintClass):
     name: str
     description: str
     __price: float
@@ -9,6 +24,7 @@ class Product:
         self.description = description
         self.__price = price
         self.quantity = quantity
+        super().__repr__()
 
     def __str__(self):
         return f"{self.name}, {self.price} руб. Остаток: {self.quantity} шт."
