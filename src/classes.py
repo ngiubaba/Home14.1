@@ -22,7 +22,7 @@ class Product(BaseProduct, MixinPrintClass):
     __slots__ = ["name", "description", "__price", "quantity"]
 
     def __init__(self, name, description, price, quantity):
-        if quantity <= 0 :
+        if quantity <= 0:
             raise ValueError("Товар с нулевым количеством не может быть добавлен")
         self.name = name
         self.description = description
@@ -30,12 +30,8 @@ class Product(BaseProduct, MixinPrintClass):
         self.quantity = quantity
         super().__init__()
 
-
-
-
     def __str__(self):
         return f"{self.name}, {self.price} руб. Остаток: {self.quantity} шт."
-
 
     @classmethod
     def new_product(cls, product_dict):
@@ -46,11 +42,9 @@ class Product(BaseProduct, MixinPrintClass):
             product_dict["quantity"],
         )
 
-
     @property
     def price(self):
         return self.__price
-
 
     @price.setter
     def price(self, price_new):
@@ -58,7 +52,6 @@ class Product(BaseProduct, MixinPrintClass):
             print("Цена не должна быть нулевая или отрицательная")
         else:
             self.__price = price_new
-
 
     def __add__(self, other):
         if type(self) is type(other):
@@ -71,7 +64,7 @@ class Smartphone(Product):
     __slots__ = ["efficiency", "model", "memory", "color"]
 
     def __init__(
-            self, name, description, price, quantity, efficiency, model, memory, color
+        self, name, description, price, quantity, efficiency, model, memory, color
     ):
         super().__init__(name, description, price, quantity)
         self.efficiency = efficiency
@@ -84,7 +77,7 @@ class LawnGrass(Product):
     __slots__ = ["country", "germination_period", "color"]
 
     def __init__(
-            self, name, description, price, quantity, country, germination_period, color
+        self, name, description, price, quantity, country, germination_period, color
     ):
         super().__init__(name, description, price, quantity)
         self.country = country
@@ -100,7 +93,6 @@ class Category:
     __products: list[Product]
     product_quantity = 0
     quantity: int
-
 
     def __init__(self, name, description, products):
         self.name = name
@@ -136,4 +128,3 @@ class Category:
         except ZeroDivisionError:
             return 0.0
         return average
-
