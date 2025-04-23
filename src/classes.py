@@ -134,7 +134,6 @@ class Category:
         try:
             average = average / i
         except ZeroDivisionError:
-            return 0
+            return 0.0
         return average
-            # i += 1
-            # result = middle / i
+
