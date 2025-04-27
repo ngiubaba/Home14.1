@@ -22,6 +22,8 @@ class Product(BaseProduct, MixinPrintClass):
     __slots__ = ["name", "description", "__price", "quantity"]
 
     def __init__(self, name, description, price, quantity):
+        if quantity <= 0:
+            raise ValueError("Товар с нулевым количеством не может быть добавлен")
         self.name = name
         self.description = description
         self.__price = price
@@ -72,7 +74,6 @@ class Smartphone(Product):
 
 
 class LawnGrass(Product):
-
     __slots__ = ["country", "germination_period", "color"]
 
     def __init__(
@@ -114,3 +115,16 @@ class Category:
     def __str__(self):
         all_quantity = sum(product.quantity for product in self.__products)
         return f"{self.name}, количество продуктов: {all_quantity} шт."
+
+    def middle_price(self):
+        average = 0.0
+        i = 0
+        for product in self.__products:
+            sum_price = product.quantity * product.price
+            i += product.quantity
+            average += sum_price
+        try:
+            average = average / i
+        except ZeroDivisionError:
+            return 0.0
+        return average

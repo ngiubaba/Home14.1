@@ -43,6 +43,12 @@ def test_product_dict():
     assert product_new.quantity == 3
 
 
+def test_product_quantity():
+    """Тест когда в товаре кол-во 0"""
+    with pytest.raises(ValueError):
+        Product("Iphone", "Nice phone", 120_000, 0)
+
+
 def test_new_price_product(product_name):
     """Тест проверка установки новой цены товара"""
     new_price = 100
@@ -163,3 +169,14 @@ def test_print_class():
 def test_print_class_inf():
     """Тест, что класс продукт наследуются от абстрактного класса BaseProduct"""
     assert "BaseProduct" in str(Smartphone.__mro__)
+
+
+def test_average_sum(category_count_fix):
+    """Тест на работоспособность нахождения среднего значения всех продуктов в категории"""
+    assert category_count_fix.middle_price() == 90000.0
+
+
+def test_exception():
+    """Тест деление на 0 или отсутствие продуктов в категории"""
+    category = Category("Telephone", "Средство для связи на дальние расстояния", [])
+    assert category.middle_price() == 0.0
